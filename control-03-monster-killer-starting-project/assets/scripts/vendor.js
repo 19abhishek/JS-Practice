@@ -11,7 +11,7 @@ function adjustHealthBars(maxLife) {
   monsterHealthBar.max = 100;
   monsterHealthBar.value = maxLife;
   playerHealthBar.max = 100;
-  //playerHealthBar.value = maxLife;
+  playerHealthBar.value = maxLife;
 }
 
 function dealMonsterDamage(damage) {
