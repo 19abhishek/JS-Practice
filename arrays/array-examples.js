@@ -24,7 +24,7 @@ for (const data of analyticsData) {
   }
 }
 
-console.log(personalData[1]);
+console.log(personalData[2]);
 
 const hobbies = ['Sports', 'Cooking'];
 hobbies.push('Reading');
