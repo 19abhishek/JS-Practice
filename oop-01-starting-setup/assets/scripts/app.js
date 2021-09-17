@@ -16,9 +16,23 @@ class Product {
 class shoppingCart {
     items = [];
 
+    set cartItems(value) {
+        this.items = value;
+        this.totalOutput.innerHTML = `<h2>Total: \₹${this.totalAmount}</h2>`;
+    }
+
+    get totalAmount() {
+        let amt = 0;
+        for(const item of this.items){
+            amt += item.price;
+        }
+        return amt;
+    }
+
     addProduct(product) {
-        this.items.push(product);
-        this.totalOutput.innerHTML = `Total: \₹${1}`;
+        const updatedItems = [...this.items];
+        updatedItems.push(product);
+        this.cartItems = updatedItems;
     }
 
     render() {
@@ -39,8 +53,8 @@ class ProductItem {
     }
 
     addToCart(){
-        // console.log('Adding to Cart ...');
-        // console.log(this.product);
+        console.log('Adding to Cart ...');
+        console.log(this.product);
         App.addProductToCart(this.product);
     }
 
@@ -107,6 +121,8 @@ class Shop {
 }
 
 class App {
+    static cart;
+
     static init(){
         const shop = new Shop();
         shop.render();
