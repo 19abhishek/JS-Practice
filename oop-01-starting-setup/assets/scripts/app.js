@@ -61,6 +61,11 @@ class shoppingCart extends component {
         return amt;
     }
 
+    order() {
+        console.log('Order Successful!');
+        console.log('Order Amount ' + this.totalAmount);
+    }
+
     addProduct(product) {
         const updatedItems = [...this.items];
         updatedItems.push(product);
@@ -75,6 +80,8 @@ class shoppingCart extends component {
             <button>Order Now!</button>
         `;
         this.totalOutput = prodEl.querySelector('h2');
+        const orderBtn = prodEl.querySelector('button');
+        orderBtn.addEventListener('click', this.order.bind(this));
         //return prodEl;
     }
 }
