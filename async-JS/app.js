@@ -1,3 +1,5 @@
+//Async-Await can only be used inside a function
+
 const btn = document.querySelector('button');
 
 const getPosition = (opts) => {
@@ -5,7 +7,7 @@ const getPosition = (opts) => {
         navigator.geolocation.getCurrentPosition(success => {
             resolve(success);
         }, failure => {
-            
+            reject(failure);
         }, opts);
     });
     return promise;
@@ -26,6 +28,10 @@ function trackUserHandler3() {
     .then(posData => {
         positionData = posData;
         return setTimer(2000);
+    })
+    .catch(err => {
+        console.log(err);
+        console.log('Here we go!');
     })
     .then(data => {
         console.log(data, positionData);
@@ -77,4 +83,37 @@ function trackUserHandler() {
     console.log('Getting Position');
 }
 
-btn.addEventListener('click', trackUserHandler3);    
+//Async-Await
+async function trackUserHandler5() {
+    const posData = await getPosition();
+    const timerData = await setTimer(2000);
+    console.log(posData, timerData);
+}
+
+//Async-Await Error Handling
+async function trackUserHandler() {
+    let posData;
+    let timerData;
+    try {
+        posData = await getPosition();
+        timerData = await setTimer(2000);
+    } catch (error) {
+        console.log(error);
+    }
+    console.log(posData, timerData);
+}
+
+//Promise Property
+Promise.race([getPosition(), setTimer(1000)]).then(data => {
+    console.log(data);
+});
+
+Promise.all([getPosition(), setTimer(1000)]).then(promiseData => {
+    console.log(promiseData);
+});
+
+Promise.allSettled([getPosition(), setTimer(1000)]).then(promiseData => {
+    console.log(promiseData);
+});
+
+btn.addEventListener('click', trackUserHandler);    
